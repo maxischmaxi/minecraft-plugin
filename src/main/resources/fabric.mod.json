@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "xray",
+	"version": "${version}",
+	"name": "Xray",
+	"description": "Highlights ores through walls.",
+	"authors": ["Max Jeschek"],
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["dev.jeschek.xray.XrayClient"],
+		"modmenu": ["dev.jeschek.xray.ModMenuIntegration"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}
