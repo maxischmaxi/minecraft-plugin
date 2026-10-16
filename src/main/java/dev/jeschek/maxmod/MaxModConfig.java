@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import dev.jeschek.maxmod.durability.DurabilityConfig;
+import dev.jeschek.maxmod.freecam.FreecamConfig;
 import dev.jeschek.maxmod.xray.XrayConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ public final class MaxModConfig {
 
     public XrayConfig xray = new XrayConfig();
     public DurabilityConfig durability = new DurabilityConfig();
+    public FreecamConfig freecam = new FreecamConfig();
 
     public static MaxModConfig load() {
         MaxModConfig config = null;
@@ -40,7 +42,11 @@ public final class MaxModConfig {
         if (config.durability == null) {
             config.durability = new DurabilityConfig();
         }
+        if (config.freecam == null) {
+            config.freecam = new FreecamConfig();
+        }
         config.xray.normalize();
+        config.freecam.normalize();
         return config;
     }
 

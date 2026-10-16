@@ -3,7 +3,11 @@
 	"package": "dev.jeschek.maxmod.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"AbstractContainerScreenAccessor"
+		"AbstractContainerScreenAccessor",
+		"CameraMixin",
+		"KeyboardInputMixin",
+		"MinecraftMixin",
+		"MouseHandlerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

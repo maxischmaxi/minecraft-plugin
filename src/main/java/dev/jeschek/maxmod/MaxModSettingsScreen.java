@@ -1,6 +1,7 @@
 package dev.jeschek.maxmod;
 
 import dev.jeschek.maxmod.durability.DurabilityConfig;
+import dev.jeschek.maxmod.freecam.FreecamConfig;
 import dev.jeschek.maxmod.xray.OreType;
 import dev.jeschek.maxmod.xray.XrayConfig;
 import net.minecraft.client.Minecraft;
@@ -62,6 +63,18 @@ public final class MaxModSettingsScreen extends OptionsSubScreen {
                         value -> durability.hud = value),
                 OptionInstance.createBoolean("maxmod.options.durability.tooltip", durability.tooltip,
                         value -> durability.tooltip = value));
+
+        FreecamConfig freecam = config.freecam;
+        list.addHeader(Component.translatable("maxmod.options.freecam"));
+        list.addBig(new OptionInstance<>(
+                "maxmod.options.freecam.speed",
+                OptionInstance.noTooltip(),
+                (caption, value) -> Component.translatable("maxmod.options.freecam.speed_value", caption, value),
+                new OptionInstance.IntRange(FreecamConfig.MIN_SPEED, FreecamConfig.MAX_SPEED),
+                freecam.speed,
+                value -> freecam.speed = value));
+        list.addBig(OptionInstance.createBoolean("maxmod.options.freecam.exit_on_damage", freecam.exitOnDamage,
+                value -> freecam.exitOnDamage = value));
     }
 
     @Override

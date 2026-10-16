@@ -3,7 +3,7 @@
 	"id": "maxmod",
 	"version": "${version}",
 	"name": "Max Mod",
-	"description": "Personal client tweaks: ore x-ray, inventory sorting and a durability viewer.",
+	"description": "Personal client tweaks: ore x-ray, inventory sorting, a durability viewer and freecam.",
 	"authors": ["Max Jeschek"],
 	"license": "MIT",
 	"environment": "client",

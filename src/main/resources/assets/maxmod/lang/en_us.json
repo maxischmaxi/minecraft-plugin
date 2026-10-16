@@ -2,6 +2,7 @@
 	"key.category.maxmod.maxmod": "Max Mod",
 	"key.maxmod.xray": "Toggle x-ray",
 	"key.maxmod.sort": "Sort inventory",
+	"key.maxmod.freecam": "Toggle freecam",
 	"maxmod.options.title": "Max Mod Settings",
 	"maxmod.options.xray": "X-Ray",
 	"maxmod.options.xray.intensity": "Glow intensity",
@@ -11,5 +12,12 @@
 	"maxmod.options.durability.hud": "HUD",
 	"maxmod.options.durability.tooltip": "Tooltip",
 	"maxmod.tooltip.durability": "Durability: %s",
-	"maxmod.tooltip.mining_speed": "Mining speed: %s"
+	"maxmod.tooltip.mining_speed": "Mining speed: %s",
+	"maxmod.options.freecam": "Freecam",
+	"maxmod.options.freecam.speed": "Speed",
+	"maxmod.options.freecam.speed_value": "%s: %s blocks/s",
+	"maxmod.options.freecam.exit_on_damage": "Exit on damage",
+	"maxmod.freecam.on": "Freecam on (%s blocks/s, mouse wheel changes speed)",
+	"maxmod.freecam.off": "Freecam off",
+	"maxmod.freecam.speed": "Freecam speed: %s blocks/s"
 }
