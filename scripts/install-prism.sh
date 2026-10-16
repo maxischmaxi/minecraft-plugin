@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# builds the xray mod and copies it (plus fabric-api if missing) into the prism 26.3 instance
+# builds max mod and copies it (plus fabric-api if missing) into the prism 26.3 instance
 set -euo pipefail
 
 PROJECT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -16,9 +16,9 @@ fi
 (cd "$PROJECT" && ./gradlew build -q)
 mkdir -p "$MODS"
 
-rm -f "$MODS"/xray-*.jar
-cp "$PROJECT"/build/libs/xray-*[0-9].jar "$MODS/"
-echo "copied $(ls "$MODS" | grep '^xray-')"
+rm -f "$MODS"/xray-*.jar "$MODS"/maxmod-*.jar
+cp "$PROJECT"/build/libs/maxmod-*[0-9].jar "$MODS/"
+echo "copied $(ls "$MODS" | grep '^maxmod-')"
 
 if ! ls "$MODS" | grep -q '^fabric-api'; then
 	curl -sSfL -o "$MODS/fabric-api-$FABRIC_API.jar" \

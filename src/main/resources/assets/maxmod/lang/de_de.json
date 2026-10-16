@@ -1,0 +1,10 @@
+{
+	"key.category.maxmod.maxmod": "Max Mod",
+	"key.maxmod.xray": "X-Ray umschalten",
+	"key.maxmod.sort": "Inventar sortieren",
+	"maxmod.options.title": "Max-Mod-Einstellungen",
+	"maxmod.options.xray": "X-Ray",
+	"maxmod.options.xray.intensity": "Leuchtintensität",
+	"maxmod.options.xray.radius": "Radius",
+	"maxmod.options.xray.ores": "Erze"
+}

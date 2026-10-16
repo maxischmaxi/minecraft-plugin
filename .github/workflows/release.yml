@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+
+      # the mod version comes from the tag, e.g. v0.2.0 -> 0.2.0
+      - id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./gradlew build -Pversion="$VERSION"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jar
+          path: build/libs/maxmod-${{ steps.version.outputs.version }}.jar
+          if-no-files-found: error
+
+  # separate job so only the release step gets write access
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: jar
+
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          FLAGS=()
+          # tags like v0.2.0-beta.1 become pre-releases
+          if [[ "$VERSION" == *-* ]]; then
+            FLAGS+=(--prerelease)
+          fi
+          gh release create "$GITHUB_REF_NAME" "maxmod-$VERSION.jar" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Max Mod $VERSION" \
+            --generate-notes \
+            "${FLAGS[@]}"

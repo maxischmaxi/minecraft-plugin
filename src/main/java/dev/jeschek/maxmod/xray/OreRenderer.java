@@ -1,4 +1,4 @@
-package dev.jeschek.xray;
+package dev.jeschek.maxmod.xray;
 
 import net.minecraft.gizmos.GizmoStyle;
 import net.minecraft.gizmos.Gizmos;

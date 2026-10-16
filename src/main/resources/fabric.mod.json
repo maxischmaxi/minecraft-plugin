@@ -1,16 +1,19 @@
 {
 	"schemaVersion": 1,
-	"id": "xray",
+	"id": "maxmod",
 	"version": "${version}",
-	"name": "Xray",
-	"description": "Highlights ores through walls.",
+	"name": "Max Mod",
+	"description": "Personal client tweaks: ore x-ray and inventory sorting.",
 	"authors": ["Max Jeschek"],
 	"license": "MIT",
 	"environment": "client",
 	"entrypoints": {
-		"client": ["dev.jeschek.xray.XrayClient"],
-		"modmenu": ["dev.jeschek.xray.ModMenuIntegration"]
+		"client": ["dev.jeschek.maxmod.MaxModClient"],
+		"modmenu": ["dev.jeschek.maxmod.ModMenuIntegration"]
 	},
+	"mixins": [
+		"maxmod.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.19.5",
 		"minecraft": "~26.3",

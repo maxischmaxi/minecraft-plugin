@@ -1,8 +1,9 @@
-package dev.jeschek.xray;
+package dev.jeschek.maxmod.xray;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import net.fabricmc.api.ClientModInitializer;
+import dev.jeschek.maxmod.MaxModConfig;
+import dev.jeschek.maxmod.MaxModSettingsScreen;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -11,32 +12,27 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
-public final class XrayClient implements ClientModInitializer {
+// highlights ores through walls
+public final class Xray {
 
     private static final int SCAN_INTERVAL_TICKS = 10;
 
-    private static XrayConfig config;
-
+    private final MaxModConfig config;
     private boolean enabled;
     private int ticksUntilScan;
     private List<OreScanner.Hit> ores = List.of();
     private KeyMapping toggleKey;
 
-    public static XrayConfig config() {
-        return config;
+    public Xray(MaxModConfig config) {
+        this.config = config;
     }
 
-    @Override
-    public void onInitializeClient() {
-        config = XrayConfig.load();
-
-        KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("xray", "xray"));
+    public void register(KeyMapping.Category category) {
         toggleKey = KeyMappingHelper.registerKeyMapping(
-                new KeyMapping("key.xray.toggle", InputConstants.KEY_X, category));
+                new KeyMapping("key.maxmod.xray", InputConstants.KEY_X, category));
 
         ClientTickEvents.END_CLIENT_TICK.register(this::onTick);
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> setEnabled(false));
@@ -51,7 +47,7 @@ public final class XrayClient implements ClientModInitializer {
                                 .then(ClientCommands.argument("blocks",
                                                 IntegerArgumentType.integer(XrayConfig.MIN_RADIUS, XrayConfig.MAX_RADIUS))
                                         .executes(ctx -> {
-                                            config.radius = IntegerArgumentType.getInteger(ctx, "blocks");
+                                            config.xray.radius = IntegerArgumentType.getInteger(ctx, "blocks");
                                             config.save();
                                             setEnabled(true);
                                             ctx.getSource().sendFeedback(status());
@@ -61,7 +57,7 @@ public final class XrayClient implements ClientModInitializer {
                                 .executes(ctx -> {
                                     Minecraft client = ctx.getSource().getClient();
                                     // the chat screen closes after the command, so open the settings afterwards
-                                    client.schedule(() -> client.gui.setScreen(new XraySettingsScreen(null, config)));
+                                    client.schedule(() -> client.gui.setScreen(new MaxModSettingsScreen(null, config)));
                                     return 1;
                                 }))));
     }
@@ -79,11 +75,11 @@ public final class XrayClient implements ClientModInitializer {
 
         if (--ticksUntilScan <= 0) {
             ticksUntilScan = SCAN_INTERVAL_TICKS;
-            ores = OreScanner.scan(client.level, client.player.blockPosition(), config.radius, config.enabledOres());
+            ores = OreScanner.scan(client.level, client.player.blockPosition(), config.xray.radius, config.xray.enabledOres());
         }
 
         // gizmos only live for one tick, so they are re-emitted every tick
-        OreRenderer.draw(ores, config.intensity);
+        OreRenderer.draw(ores, config.xray.intensity);
     }
 
     private Component toggle() {
@@ -99,7 +95,7 @@ public final class XrayClient implements ClientModInitializer {
 
     private Component status() {
         return enabled
-                ? Component.literal("X-ray on, radius " + config.radius)
+                ? Component.literal("X-ray on, radius " + config.xray.radius)
                 : Component.literal("X-ray off");
     }
 }

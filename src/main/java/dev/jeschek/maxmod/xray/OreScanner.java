@@ -1,4 +1,4 @@
-package dev.jeschek.xray;
+package dev.jeschek.maxmod.xray;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;

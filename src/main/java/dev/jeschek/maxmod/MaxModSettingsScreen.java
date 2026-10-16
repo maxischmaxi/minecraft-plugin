@@ -1,5 +1,7 @@
-package dev.jeschek.xray;
+package dev.jeschek.maxmod;
 
+import dev.jeschek.maxmod.xray.OreType;
+import dev.jeschek.maxmod.xray.XrayConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
@@ -7,12 +9,12 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
 
-public final class XraySettingsScreen extends OptionsSubScreen {
+public final class MaxModSettingsScreen extends OptionsSubScreen {
 
-    private final XrayConfig config;
+    private final MaxModConfig config;
 
-    public XraySettingsScreen(Screen parent, XrayConfig config) {
-        super(parent, Minecraft.getInstance().options, Component.translatable("xray.options.title"));
+    public MaxModSettingsScreen(Screen parent, MaxModConfig config) {
+        super(parent, Minecraft.getInstance().options, Component.translatable("maxmod.options.title"));
         this.config = config;
     }
 
@@ -21,30 +23,33 @@ public final class XraySettingsScreen extends OptionsSubScreen {
         if (list == null) {
             return;
         }
+        XrayConfig xray = config.xray;
+
+        list.addHeader(Component.translatable("maxmod.options.xray"));
 
         list.addBig(new OptionInstance<>(
-                "xray.options.intensity",
+                "maxmod.options.xray.intensity",
                 OptionInstance.noTooltip(),
                 (caption, value) -> Component.translatable("options.percent_value", caption, value),
                 new OptionInstance.IntRange(XrayConfig.MIN_INTENSITY, XrayConfig.MAX_INTENSITY),
-                config.intensity,
-                value -> config.intensity = value));
+                xray.intensity,
+                value -> xray.intensity = value));
 
         list.addBig(new OptionInstance<>(
-                "xray.options.radius",
+                "maxmod.options.xray.radius",
                 OptionInstance.noTooltip(),
                 Options::genericValueLabel,
                 new OptionInstance.IntRange(XrayConfig.MIN_RADIUS, XrayConfig.MAX_RADIUS),
-                config.radius,
-                value -> config.radius = value));
+                xray.radius,
+                value -> xray.radius = value));
 
-        list.addHeader(Component.translatable("xray.options.ores"));
+        list.addHeader(Component.translatable("maxmod.options.xray.ores"));
         OptionInstance<?>[] toggles = new OptionInstance<?>[OreType.values().length];
         for (OreType type : OreType.values()) {
             toggles[type.ordinal()] = OptionInstance.createBoolean(
                     type.translationKey(),
-                    config.isEnabled(type),
-                    value -> config.setEnabled(type, value));
+                    xray.isEnabled(type),
+                    value -> xray.setEnabled(type, value));
         }
         // two toggles per row
         list.addSmall(toggles);
