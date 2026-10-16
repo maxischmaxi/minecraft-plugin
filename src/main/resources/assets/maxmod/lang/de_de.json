@@ -6,5 +6,10 @@
 	"maxmod.options.xray": "X-Ray",
 	"maxmod.options.xray.intensity": "Leuchtintensität",
 	"maxmod.options.xray.radius": "Radius",
-	"maxmod.options.xray.ores": "Erze"
+	"maxmod.options.xray.ores": "Erze",
+	"maxmod.options.durability": "Haltbarkeit",
+	"maxmod.options.durability.hud": "HUD",
+	"maxmod.options.durability.tooltip": "Tooltip",
+	"maxmod.tooltip.durability": "Haltbarkeit: %s",
+	"maxmod.tooltip.mining_speed": "Abbaugeschwindigkeit: %s"
 }

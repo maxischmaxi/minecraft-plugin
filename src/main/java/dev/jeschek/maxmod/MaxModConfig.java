@@ -3,6 +3,7 @@ package dev.jeschek.maxmod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
+import dev.jeschek.maxmod.durability.DurabilityConfig;
 import dev.jeschek.maxmod.xray.XrayConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public final class MaxModConfig {
     private static final Path FILE = FabricLoader.getInstance().getConfigDir().resolve("maxmod.json");
 
     public XrayConfig xray = new XrayConfig();
+    public DurabilityConfig durability = new DurabilityConfig();
 
     public static MaxModConfig load() {
         MaxModConfig config = null;
@@ -34,6 +36,9 @@ public final class MaxModConfig {
         }
         if (config.xray == null) {
             config.xray = new XrayConfig();
+        }
+        if (config.durability == null) {
+            config.durability = new DurabilityConfig();
         }
         config.xray.normalize();
         return config;

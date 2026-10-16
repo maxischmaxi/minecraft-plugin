@@ -1,5 +1,6 @@
 package dev.jeschek.maxmod;
 
+import dev.jeschek.maxmod.durability.DurabilityConfig;
 import dev.jeschek.maxmod.xray.OreType;
 import dev.jeschek.maxmod.xray.XrayConfig;
 import net.minecraft.client.Minecraft;
@@ -53,6 +54,14 @@ public final class MaxModSettingsScreen extends OptionsSubScreen {
         }
         // two toggles per row
         list.addSmall(toggles);
+
+        DurabilityConfig durability = config.durability;
+        list.addHeader(Component.translatable("maxmod.options.durability"));
+        list.addSmall(
+                OptionInstance.createBoolean("maxmod.options.durability.hud", durability.hud,
+                        value -> durability.hud = value),
+                OptionInstance.createBoolean("maxmod.options.durability.tooltip", durability.tooltip,
+                        value -> durability.tooltip = value));
     }
 
     @Override

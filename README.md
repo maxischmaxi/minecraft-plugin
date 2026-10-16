@@ -4,6 +4,7 @@ A small Fabric client mod for Minecraft 26.3 with personal quality-of-life tweak
 
 - **Ore x-ray**: highlights ores around the player through walls.
 - **Inventory sorting**: sorts chests and the player inventory with a middle click.
+- **Durability viewer**: shows the durability of armor and held items in the HUD and in tooltips.
 
 The mod is client-only. Servers don't need it, and it works in singleplayer and multiplayer.
 
@@ -53,6 +54,14 @@ Open an inventory and **middle click** a slot. The section that slot belongs to 
 Partial stacks of the same item get merged first. Then items are ordered by their registry order, which keeps related items like stone variants together. Sorting is done with regular inventory clicks, so it works on servers too. Nothing happens while an item is held on the cursor or in the creative inventory.
 
 Both key bindings can be changed under *Options → Controls → Key Binds → Max Mod*.
+
+### Durability viewer
+
+The bottom left corner of the HUD lists the worn armor and the items in both hands with their remaining durability, e.g. `1402/1561`. The color goes from green to red like the vanilla durability bar. Items without durability are skipped. Visible chat messages are drawn on top of it.
+
+Tooltips of items with durability always show the remaining durability, not only with advanced tooltips (F3+H). Tools also show their base mining speed, without Efficiency.
+
+Both parts can be turned off in the settings screen.
 
 ### Configuration
 
